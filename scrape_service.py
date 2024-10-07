@@ -1,18 +1,6 @@
-from fastapi import FastAPI, HTTPException
-from .db_connection import insert_data_into_mongo_db
 import requests
 from bs4 import BeautifulSoup
-import time
-from pydantic import BaseModel
-from typing import List
 
-# # Pydantic model for scraped article data
-# class Article(BaseModel):
-#     title: str
-#     date: str
-#     category: str
-#     description: str
-#     image_url: str
 
 # Function to scrape a single page
 async def scrape_page(url):
@@ -53,29 +41,3 @@ async def scrape_page(url):
     return scraped_data
 
 
-# # API Endpoint to trigger the scraping process and store in MongoDB
-# @app.get("/scrape")
-# async def start_scraping():
-#     base_url = "https://kabochan.blog.jp"
-
-#     # First, scrape the base URL
-#     print(f"Scraping the base page: {base_url}")
-#     await scrape_page(base_url)
-
-#     # Then scrape the other pages (from page 2 onwards)
-#     for page_num in range(2, 237):  # Loop over multiple pages
-#         page_url = f"{base_url}/?p={page_num}"
-#         await scrape_page(page_url)
-#         print(f"Scraping page {page_num}: {page_url}")
-#         time.sleep(2)  # Pause to avoid overwhelming the server
-
-#     return {"status": "Scraping completed"}
-
-
-# # API Endpoint to get all articles from MongoDB
-# @app.get("/articles/", response_model=List[Article])
-# async def get_articles():
-#     articles = await collection.find().to_list(1000)
-#     if articles:
-#         return articles
-#     raise HTTPException(status_code=404, detail="No articles found")
